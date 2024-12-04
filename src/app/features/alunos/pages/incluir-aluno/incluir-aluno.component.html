@@ -1,1 +1,39 @@
-<p>incluir-aluno works!</p>
+<div class="container">
+    <h2>Incluir Novo Aluno</h2>
+    <form [formGroup]="alunoForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Matrícula</mat-label>
+        <input matInput placeholder="Digite a matrícula" formControlName="matricula" />
+        <mat-error *ngIf="alunoForm.get('matricula')?.hasError('required')">
+          A matrícula é obrigatória.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Digite o nome" formControlName="nome" />
+        <mat-error *ngIf="alunoForm.get('nome')?.hasError('minlength')">
+          O nome deve ter pelo menos 3 caracteres.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="Selecione a data" formControlName="dataNascimento" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="alunoForm.get('dataNascimento')?.hasError('required')">
+          A data de nascimento é obrigatória.
+        </mat-error>
+        <mat-error *ngIf="alunoForm.get('dataNascimento')?.hasError('invalidDate')">
+          A data de nascimento deve ser válida e não pode ser maior que hoje.
+        </mat-error>
+      </mat-form-field>
+  
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="alunoForm.invalid">Salvar</button>
+        <button mat-raised-button color="warn" type="button" routerLink="/alunos">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  

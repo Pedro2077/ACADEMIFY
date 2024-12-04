@@ -1,1 +1,32 @@
-<p>editar-aluno works!</p>
+<div class="container">
+    <h2>Editar Aluno</h2>
+    <form [formGroup]="alunoForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Matrícula</mat-label>
+        <input matInput formControlName="matricula" placeholder="Informe a matrícula" readonly />
+        <mat-error *ngIf="alunoForm.get('matricula')?.hasError('required')">Matrícula é obrigatória.</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" placeholder="Informe o nome" />
+        <mat-error *ngIf="alunoForm.get('nome')?.hasError('required')">O nome é obrigatório.</mat-error>
+        <mat-error *ngIf="alunoForm.get('nome')?.hasError('minlength')">O nome deve ter mais que 3 caracteres.</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput formControlName="dataNascimento" [matDatepicker]="picker" placeholder="Informe a data de nascimento" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="alunoForm.get('dataNascimento')?.hasError('required')">Data de nascimento é obrigatória.</mat-error>
+        <mat-error *ngIf="alunoForm.get('dataNascimento')?.hasError('invalidDate')">Data de nascimento inválida.</mat-error>
+      </mat-form-field>
+  
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="alunoForm.invalid">Salvar</button>
+        <button mat-raised-button color="accent" type="button" routerLink="/alunos">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
